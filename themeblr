@@ -1,0 +1,242 @@
+<html>
+    <head>
+        <title>{Title}</title>
+        <link rel="shortcut icon" href="{Favicon}">
+        <link rel="alternate" type="application/rss+xml" href="{RSS}">
+        {block:Description}
+            <meta name="description" content="{MetaDescription}" />
+        {/block:Description}
+        <meta name="color:SiteBack" content="#fff"/>
+        <meta name="color:Title" content="#333333"/>
+        <meta name="color:Description" content="#BBBBBB"/>
+        <meta name="color:Text" content="#444"/>
+        <meta name="color:Basic Link" content="#FFFFFF"/>
+        <meta name="color:Title Link" content="#FFFFFF"/>
+        <meta name="color:Title Back" content="#000000"/>
+
+        <meta name="color:Even Posts" content="#EEEEEE"/>
+        <meta name="color:Odd Posts" content="#E9E9E9"/>
+        <meta name="color:Background" content="#EEEEEE"/>
+
+        <meta name="color:PostBack" content="#7A7A7A"/>
+
+
+        <meta name="font:Title" content="Helvetica Neue"/>
+        <meta name="font:Body" content="Helvetica Neue"/>
+        <meta name="image:Header" content=""/>
+        <meta name="image:Main Background" content=""/>
+        <meta name="image:Post Background" content=""/> 
+
+        <meta name="text:Disqus Shortname" content="" />
+        <meta name="if:Show people I follow" content="0"/> 
+        <meta name="if:Show ask sidebar" content="0"/> 
+
+        <meta name="text:Twitter Shortname" content="" />
+        <style type="text/css">
+            html {
+                text-transform: lowercase;
+                font-size:2em;
+                font-family:arial;
+                line-height:1.3em;
+                letter-spacing: -0.1em;
+                background-color:{color:Background};
+                background-image:url('{image:Main Background}');
+                min-width:650px;
+            }
+
+            ul#nav li {
+                list-style: none;
+                margin-top:0.8em;
+                line-height:0.9em;
+
+            }
+            a {
+                font-weight:bold; 
+                text-decoration:none;
+                color:{color:Basic Link};
+            }
+            a:hover {
+                text-decoration:underline;
+            }
+            ul#nav li a, h3 a, .post.link a, #footer a, .post.text h3 a {
+                background-color:{color:Title Back}; 
+                padding:0.1em 0.5em 0.2em 0.2em;
+                text-transform:uppercase;
+                display:inline;
+                color:{color:Title Link};
+            }
+            #nav{
+                float:left;
+                margin:0;
+                padding:0;
+                padding-right:2em;
+            }
+            ul#posts {
+                margin:1em;
+                padding:0;
+                list-style:none;
+            }
+            .post {
+                padding:1em;    
+                margin-bottom:1em;
+                box-shadow: 10px 10px 5px #DEDEDE;
+            }
+            li.post.even {
+                background-color:{color:Even Posts};
+                background-image:url('{image:Post Background}');
+            }
+            li.post.odd {
+                background-color:{color:Odd Posts};
+                background-image:url('{image:Post Background}');
+            }
+            #posts {
+                clear:both;    
+            }
+            {CustomCSS}
+        </style>
+    </head>
+    <body>
+        <ul id="nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/random">Random</a></li>
+            <li><a href="/archive">Archive</a></li>
+            <li><a href="{RSS}">RSS</a></li>
+            {block:IfShowAskSidebar}
+                <li><a href="/ask">Ask</a></li>
+            {/block:IfShowAskSidebar}
+        </ul>
+        <div id="header">
+            <a href="/" class="header">
+                {block:IfHeaderImage}
+                    <img src="{image:Header}" alt="i only like rap"/>
+                {/block:IfHeaderImage}
+                {block:IfNotHeaderImage}
+                    <h1>{Title}</h1>
+                {/block:IfNotHeaderImage}
+            </a>
+            {block:Description}
+                <p id="description">{Description}</p>
+            {/block:Description}
+        </div>
+        
+        <ul id="posts">
+            {block:Posts}
+                {block:Text}
+                    <li class="post text {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {block:Title}
+                            <h3><a href="{Permalink}">{Title}</a></h3>
+                        {/block:Title}
+
+                        {Body}
+                    </li>
+                {/block:Text}
+
+                {block:Photo}
+                    <li class="post photo {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        <img src="{PhotoURL-500}" alt="{PhotoAlt}"/>
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </li>
+                {/block:Photo}
+
+                {block:Panorama}
+                    <li class="post panorama {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {LinkOpenTag}
+                            <img src="{PhotoURL-Panorama}" alt="{PhotoAlt}"/>
+                        {LinkCloseTag}
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </li>
+                {/block:Panorama}
+
+                {block:Photoset}
+                    <li class="post photoset {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {Photoset-500}
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </li>
+                {/block:Photoset}
+
+                {block:Quote}
+                    <li class="post quote {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        "{Quote}"
+
+                        {block:Source}
+                            <div class="source">{Source}</div>
+                        {/block:Source}
+                    </li>
+                {/block:Quote}
+
+                {block:Link}
+                    <li class="post link {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        <a href="{URL}" class="link" {Target}>{Name}</a>
+
+                        {block:Description}
+                            <div class="description">{Description}</div>
+                        {/block:Description}
+                    </li>
+                {/block:Link}
+
+                {block:Chat}
+                    <li class="post chat {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {block:Title} 
+                            <h3><a href="{Permalink}">{Title}</a></h3>
+                        {/block:Title}
+
+                        <ul class="chat">
+                            {block:Lines}
+                                <li class="{Alt} user_{UserNumber}">
+                                    {block:Label}
+                                        <span class="label">{Label}</span>
+                                    {/block:Label}
+
+                                    {Line}
+                                </li>
+                            {/block:Lines}
+                        </ul>
+                    </li>
+                {/block:Chat}
+
+                {block:Video}
+                    <li class="post video {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {Video-500}
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </li>
+                {/block:Video}
+
+                {block:Audio}
+                    <li class="post audio {block:Odd}odd{/block:Odd}{block:Even}even{/block:Even}">
+                        {AudioPlayerBlack}
+
+                        {block:Caption}
+                            <div class="caption">{Caption}</div>
+                        {/block:Caption}
+                    </li>
+                {/block:Audio}
+            {/block:Posts}
+        </ul>
+
+        <p id="footer">
+            {block:PreviousPage}
+                <a href="{PreviousPage}">&#171; Previous</a>
+            {/block:PreviousPage}
+
+            {block:NextPage}
+                <a href="{NextPage}">Next &#187;</a>
+            {/block:NextPage}
+
+            <a href="/archive">Archive</a>
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons</a>
+            <a xmlns:cc="http://creativecommons.org/ns#" href="http://www.ionlylikerap.com" property="cc:attributionName" rel="cc:attributionURL">i&nbsp;only&nbsp;like&nbsp;rap</a>
+        </p>
+    </body>
+</html>
